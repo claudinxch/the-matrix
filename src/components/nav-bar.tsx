@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar'
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar'
 
 export default function NavBar() {
   return (
