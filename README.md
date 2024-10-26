@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Matrix
 
-## Getting Started
+<!-- [![teste em themis.kauefraga.dev](https://img.shields.io/badge/teste_em-themis.kauefraga.dev-208bfe)](https://themis.kauefraga.dev) -->
+[![Licença do projeto](https://img.shields.io/github/license/claudinxch/the-matrix)](https://github.com/kauefraga/themis/blob/main/LICENSE)
+<!-- [![Último commit](https://img.shields.io/github/last-commit/claudinxch/the-matrix/main)](https://github.com/kauefraga/themis) -->
 
-First, run the development server:
+> Uma aplicação para treinar e aprender sobre matrizes. Quer melhorar seu conhecimento em matrizes? The matrix vai te ajudar!
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<!-- <div align="center">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Demonstração do uso do The Matrix]
+(docs/demo-2.gif)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+</div> -->
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+O usuário poderá fazer operações com matrizes, além de participar de "mini games" e também ter acesso a explicações e ensinamentos sobre matrizes.
 
-## Learn More
+O objetivo do The Matrix é ser intuitivo, divertido e mostrar a beleza de matrizes.
 
-To learn more about Next.js, take a look at the following resources:
+## Como usar
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Entre no site [thematrix.claudinxch.dev](link)
+2. Escolha o tipo de operação e digite os valores, ou participe do "mini game" de perguntas e respostas.
+3. Faça login para ter acesso a seu <kbd>score</kbd>.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Depois disso você pode continuar explorando toda a aplicação! Bem simples, né?
 
-## Deploy on Vercel
+### Tecnologias
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Bun](https://bun.sh/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lucide](https://lucide.dev/) / [lucide-react](https://lucide.dev/guide/packages/lucide-react)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Como executar o ambiente de desenvolvimento
+
+1. Primeiro, instale as dependências do projeto (requer o [Bun](https://bun.sh/docs/installation))
+
+    Windows:
+
+    ```powershell
+    # Cheque a documentação para uma melhor explicação https://bun.sh/docs/installation
+    npm install -g bun
+    ```
+
+    Linux:
+
+    ```sh
+    # Cheque a documentação para uma melhor explicação https://bun.sh/docs/installation
+    npm install -g bun
+    # OU
+    curl -fsSL https://bun.sh/install | bash 
+    ```
+
+2. Depois, faça um *fork* do projeto.
+
+3. Após isso, *clone* o repositório remoto para sua máquina.
+
+    ```sh
+    git clone https://github.com/claudinxch/the-matrix.git 
+    ```
+
+4. Após feito tudo isso, abra o projeto e, no terminal, digite:
+
+    ```sh
+    bun install 
+    ```
+
+5. Execute o servidor de desenvolvimento do [Next.js](https://nextjs.org/docs)
+
+    ```sh
+    bun run dev
+    ```
