@@ -1,21 +1,19 @@
-import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar'
 
-export default function NavBar(){
-    return (
+export default function NavBar() {
+  return (
     <header className="flex justify-between px-24 py-3 items-center border-b">
-        <div className="flex gap-3">
-            <p>logo</p>
-            The Matrix
-        </div>
+      <div className="flex gap-3">
+        <p>logo</p>
+        The Matrix
+      </div>
 
-        <div>
-            <Avatar>
-                <AvatarImage src="/vercel.svg" alt="profile-pic">
-                </AvatarImage>
-                    <AvatarFallback>
-                        Jensen
-                    </AvatarFallback>
-            </Avatar>
-        </div>
-    </header>)
+      <div>
+        <Avatar>
+          <AvatarImage src="/vercel.svg" alt="profile-pic"></AvatarImage>
+          <AvatarFallback>Jensen</AvatarFallback>
+        </Avatar>
+      </div>
+    </header>
+  )
 }
