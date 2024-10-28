@@ -14,7 +14,9 @@ export function NavLinks() {
       <li
         className={twMerge(
           'transition hover:text-yellow dark:hover:text-yellow',
-          operations ? 'text-yellow dark:text-yellow' : 'dark:text-light-gray',
+          operations
+            ? 'text-yellow dark:text-yellow'
+            : 'text-dark-gray dark:text-light-gray',
         )}
       >
         <Link href={'/'}>Operações</Link>
@@ -22,7 +24,9 @@ export function NavLinks() {
       <li
         className={twMerge(
           'transition hover:text-yellow dark:hover:text-yellow',
-          game ? 'text-yellow dark:text-yellow' : 'dark:text-light-gray',
+          game
+            ? 'text-yellow dark:text-yellow'
+            : 'text-dark-gray dark:text-light-gray',
         )}
       >
         <Link href={'/'}>Jogo</Link>
@@ -30,7 +34,9 @@ export function NavLinks() {
       <li
         className={twMerge(
           'transition hover:text-yellow dark:hover:text-yellow',
-          learn ? 'text-yellow dark:text-yellow' : 'dark:text-light-gray',
+          learn
+            ? 'text-yellow dark:text-yellow'
+            : 'text-dark-gray dark:text-light-gray',
         )}
       >
         <Link href={'/'}>Aprenda</Link>

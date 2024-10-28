@@ -3,6 +3,7 @@ import { Vazirmatn } from 'next/font/google'
 import './globals.css'
 import { NavBar } from '@/components/navbar/nav-bar'
 import { ThemeProvider } from '@/components/theme-provider'
+import { Footer } from '@/components/core/footer'
 
 const vazirmatn = Vazirmatn({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         >
           <NavBar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
