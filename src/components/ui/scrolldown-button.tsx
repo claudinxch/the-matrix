@@ -24,7 +24,7 @@ export function ScrollDownButton() {
       className="rounded-full animate-bounce"
       onClick={scrollToSection}
     >
-      <ArrowDown className="text-yellow" />
+      <ArrowDown className="text-green" />
     </Button>
   )
 }

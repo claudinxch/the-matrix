@@ -50,7 +50,7 @@ const config: Config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        yellow: '#E2B714',
+        green: '#008F11',
         'dark-gray': '#2C2E31',
         'light-gray': '#A1A1A1',
         gray: '#646669',

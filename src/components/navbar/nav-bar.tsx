@@ -8,7 +8,7 @@ export function NavBar() {
   return (
     <header className="flex justify-between px-4 py-3 md:px-10 lg:px-24 md:py-5 items-center border-b">
       <MenuPages className="md:hidden" />
-      <div className="flex h-full items-center gap-4 dark:text-yellow">
+      <div className="flex h-full items-center gap-4 dark:text-green">
         <p>logo</p>
         <Separator
           orientation="horizontal"

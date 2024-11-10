@@ -13,9 +13,9 @@ export function NavLinks() {
     <ul className="hidden md:flex space-x-8 w-full mr-5 items-center font-medium">
       <li
         className={twMerge(
-          'transition hover:text-yellow dark:hover:text-yellow',
+          'transition hover:text-green dark:hover:text-green',
           operations
-            ? 'text-yellow dark:text-yellow'
+            ? 'text-green dark:text-green'
             : 'text-dark-gray dark:text-light-gray',
         )}
       >
@@ -23,9 +23,9 @@ export function NavLinks() {
       </li>
       <li
         className={twMerge(
-          'transition hover:text-yellow dark:hover:text-yellow',
+          'transition hover:text-green dark:hover:text-green',
           game
-            ? 'text-yellow dark:text-yellow'
+            ? 'text-green dark:text-green'
             : 'text-dark-gray dark:text-light-gray',
         )}
       >
@@ -33,9 +33,9 @@ export function NavLinks() {
       </li>
       <li
         className={twMerge(
-          'transition hover:text-yellow dark:hover:text-yellow',
+          'transition hover:text-green dark:hover:text-green',
           learn
-            ? 'text-yellow dark:text-yellow'
+            ? 'text-green dark:text-green'
             : 'text-dark-gray dark:text-light-gray',
         )}
       >
