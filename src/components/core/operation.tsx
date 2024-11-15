@@ -145,8 +145,8 @@ export function Operation({ operation }: Props) {
             <Equal className="self-center" />
             <Matrix
               matrixPosition={'resultado'}
-              rows={matrix1.rows}
-              cols={matrix1.cols}
+              rows={result.rows}
+              cols={result.cols}
             />
             {/* </div> */}
           </div>

@@ -8,7 +8,7 @@ export function Hero() {
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-2 md:w-[63%]">
           <h1 className={'text-4xl text-dark-gray dark:text-light-gray'}>
-            Bem-vindo ao{' '}
+            Bem-vindo a{' '}
             <span className="text-green font-semibold">The Matrix</span>.
           </h1>
           <p className="text-xl text-justify md:text-pretty text-dark-gray dark:text-light-gray">
@@ -40,9 +40,10 @@ export function Hero() {
           </div>
         </div>
       </div>
+
       <Image
         src={'/the-matrix-white.png'}
-        width={200}
+        width={240}
         height={140}
         quality={100}
         alt="The Matrix Logo"

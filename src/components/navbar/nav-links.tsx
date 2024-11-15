@@ -29,7 +29,7 @@ export function NavLinks() {
             : 'text-dark-gray dark:text-light-gray',
         )}
       >
-        <Link href={'/'}>Jogo</Link>
+        <Link href={'/game'}>Jogo</Link>
       </li>
       <li
         className={twMerge(
@@ -39,7 +39,7 @@ export function NavLinks() {
             : 'text-dark-gray dark:text-light-gray',
         )}
       >
-        <Link href={'/'}>Aprenda</Link>
+        <Link href={'/learn'}>Aprenda</Link>
       </li>
     </ul>
   )
