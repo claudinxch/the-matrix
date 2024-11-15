@@ -1,6 +1,5 @@
 import { ThemeButton } from '@/components/core/theme-button'
 import { UserAvatar } from '@/components/core/user-avatar'
-import { Separator } from '@/components/ui/separator'
 import { MenuPages } from '../core/menu-pages'
 import { NavLinks } from './nav-links'
 import Image from 'next/image'
@@ -19,11 +18,7 @@ export function NavBar() {
             quality={100}
             alt="The Matrix Logo"
           />
-          <Separator
-            orientation="horizontal"
-            className="bg-black dark:bg-yellow -rotate-[77deg] w-7"
-          />
-          <p>The Matrix</p>
+          <p className="text-xl font-semibold">The Matrix</p>
         </div>
       </Link>
 
