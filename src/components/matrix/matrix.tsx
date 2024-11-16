@@ -1,3 +1,4 @@
+'use client'
 import type { Matrix } from '../core/operation'
 
 interface Props extends Matrix {
@@ -15,7 +16,6 @@ export function Matrix({ matrixPosition, cols, rows }: Props) {
     value: number,
   ) => {
     matrixValues[rowIndex][colIndex] = value
-    console.log(matrixValues)
   }
 
   return (

@@ -111,7 +111,7 @@ export function Operation({ operation }: Props) {
               />
               <Button
                 variant={'outline'}
-                className="text-green hover:text-green hidden md:flex w-1/2 self-end"
+                className="text-green hover:text-green hidden md:flex w-1/2 self-end transition-all [box-shadow:0px_1px_1px_#008f11] active:translate-y-[2px] active:!shadow-none"
                 onClick={(e) => generateMatrices(e)}
               >
                 Gerar matrizes
