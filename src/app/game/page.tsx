@@ -16,14 +16,6 @@ export default function Game() {
                 mini-game de perguntas e respostas sobre matrizes
               </span>{' '}
               para testar seus conhecimentos.
-              {/* Você responderá a{' '}
-              <span className="text-green">10 perguntas</span>, a cada resposta{' '}
-              <span className="text-green">certa</span> você{' '}
-              <span className="text-green">ganha pontos</span>, a cada resposta{' '}
-              <span className="text-red-500">errada</span> você é{' '}
-              <span className="text-red-500">penalizado</span>, antes de ir para
-              a próxima pergunta, você tem o direito de ver a resposta correta,
-              e pedir a correção para IA. */}
             </p>
             <ul className="mt-4 ml-6 list-disc flex flex-col gap-px">
               <Instruction>

@@ -6,18 +6,58 @@ import { Button } from '../ui/button'
 import { AIExplanation } from './ai-explanation'
 import { Question } from './question'
 import { AnimatePresence, motion } from 'framer-motion'
-
-interface Props {}
+import { questions } from '@/mocks/questions'
+import { ArrowRight } from 'lucide-react'
+import type { Matrix as MatrixType } from '../core/operation'
 
 export function GameWrapper() {
   const [gameStart, setGameStart] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [isCorrect, setIsCorrect] = useState(false)
   const [getAnswer, setGetAnswer] = useState(false)
+  const [questionNumber, setQuestionNumber] = useState(0)
+
+  const [matrix, setMatrix] = useState<MatrixType>({
+    rows: questions[questionNumber].answer.length,
+    cols: questions[questionNumber].answer[0].length,
+    data: Array(questions[questionNumber].answer.length)
+      .fill(0)
+      .map(() => Array(questions[questionNumber].answer[0].length).fill(0)),
+  })
 
   const handleVerifyAnswer = () => {
     setIsLoading(true)
     setGetAnswer(true)
+  }
+
+  const handleNextQuestion = () => {
+    const nextQuestion = questions[questionNumber + 1]
+    const rows = nextQuestion.answer.length
+    const cols = nextQuestion.answer[0].length
+
+    setMatrix({
+      rows,
+      cols,
+      data: Array(rows)
+        .fill(0)
+        .map(() => Array(cols).fill(0)), // Initialize with zeros
+    })
+    setQuestionNumber((prev) => prev + 1)
+    setGetAnswer(false)
+  }
+
+  const handleSetMatrix = (
+    rowIndex: number,
+    colIndex: number,
+    value: number,
+  ) => {
+    setMatrix((prevMatrix) => {
+      const updatedData = [...prevMatrix.data]
+      if (!updatedData[rowIndex]) {
+        updatedData[rowIndex] = Array(prevMatrix.cols).fill(0)
+      }
+      updatedData[rowIndex][colIndex] = value
+      return { ...prevMatrix, data: updatedData }
+    })
   }
 
   return (
@@ -38,14 +78,20 @@ export function GameWrapper() {
           exit={{ opacity: 0, x: 40 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="border rounded-lg px-8 py-6 flex flex-col gap-6">
+          <div className="border rounded-lg px-8 py-6 flex flex-col md:w-[1100px] gap-6">
             <Question
-              questionNumber={1}
-              questionDescription="Qual o resultado da matriz 2 dividida por 4 que ao ficar gigantesca se compara ao tamanho da minha piroca imensa?"
+              questionNumber={questionNumber + 1}
+              questionDescription={questions[questionNumber].questionDesc}
             />
 
             <div className="flex flex-col gap-6 md:flex-row">
-              <Matrix cols={4} rows={4} matrixPosition={'resultado'} />
+              <Matrix
+                cols={matrix.cols}
+                rows={matrix.rows}
+                data={matrix.data}
+                handleSetMatrix={handleSetMatrix}
+                matrixPosition={'resultado'}
+              />
 
               <AnimatePresence mode="wait">
                 {!getAnswer ? (
@@ -54,24 +100,31 @@ export function GameWrapper() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="w-full flex items-center md:justify-center"
+                    className="w-full flex items-center justify-between md:justify-end md:self-end md:gap-6"
                   >
                     <Button
                       variant={'outline'}
-                      className="w-1/2 h-20 rounded-lg text-green hover:text-green"
+                      className="w-48 h-20 rounded-lg text-green hover:text-green"
                       onClick={handleVerifyAnswer}
                     >
                       Verificar resposta
                     </Button>
+
+                    <Button
+                      variant={'outline'}
+                      className="w-48 h-20  rounded-lg text-green hover:text-green"
+                      onClick={handleNextQuestion}
+                    >
+                      Próxima <ArrowRight />
+                    </Button>
                   </motion.div>
                 ) : (
                   <AIExplanation
-                    isCorrect={isCorrect}
-                    setIsCorrect={setIsCorrect}
-                    message="bla bla bla"
-                    explanation="that is the explanation"
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
+                    handleNextQuestion={handleNextQuestion}
+                    answer={matrix.data}
+                    expectedAnswer={questions[questionNumber].answer}
                   />
                 )}
               </AnimatePresence>

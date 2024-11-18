@@ -3,34 +3,40 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button } from '../ui/button'
+import { ArrowRight } from 'lucide-react'
+import { compareMatrices } from '@/helpers/matrix-functions'
+import { MatrixAnswer } from '../matrix/matrix'
 
 interface Props {
-  isCorrect?: boolean
-  setIsCorrect: (isCorrect: boolean) => void
-  message: string
-  explanation?: string
   isLoading?: boolean
   setIsLoading: (isLoading: boolean) => void
+  handleNextQuestion: () => void
+  answer: number[][]
+  expectedAnswer: number[][]
 }
 
 export function AIExplanation({
-  isCorrect,
-  setIsCorrect,
-  message,
-  explanation,
   isLoading,
   setIsLoading,
+  handleNextQuestion,
+  answer,
+  expectedAnswer,
 }: Props) {
+  const [isCorrect, setIsCorrect] = useState(false)
+  const [explanation, setExplanation] = useState('Explanation will appear here')
   const [seeExplanation, setSeeExplanation] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
-      setIsCorrect(false)
+      setIsCorrect(compareMatrices(answer, expectedAnswer))
     }, 1500)
-  }, [setIsCorrect, setIsLoading])
+  }, [setIsCorrect, setIsLoading, answer, expectedAnswer])
 
-  // Animation variants for the main container
+  const blabla = () => {
+    console.log('hahahihi')
+  }
+
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: {
@@ -49,7 +55,6 @@ export function AIExplanation({
     },
   }
 
-  // Animation variants for the explanation
   const explanationVariants = {
     hidden: {
       opacity: 0,
@@ -149,7 +154,16 @@ export function AIExplanation({
             </span>
           </div>
 
-          <p className="text-gray-700 mb-2">{message}</p>
+          <p className="text-gray-700 mb-2">
+            {isCorrect ? (
+              'Parabéns, resposta correta!'
+            ) : (
+              <div className="flex flex-col gap-2">
+                <p>Resposta errada, a resposta correta seria</p>
+                <MatrixAnswer data={expectedAnswer} />
+              </div>
+            )}
+          </p>
 
           {!seeExplanation ? (
             <motion.div
@@ -184,6 +198,13 @@ export function AIExplanation({
           )}
         </div>
       </motion.div>
+      <Button
+        variant={'outline'}
+        className="w-52 h-16 rounded-lg self-end mb-2 text-green hover:text-green"
+        onClick={handleNextQuestion}
+      >
+        Próxima <ArrowRight />
+      </Button>
     </AnimatePresence>
   )
 }
