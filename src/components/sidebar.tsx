@@ -34,7 +34,7 @@ export function Sidebar({ className }: Props) {
     <nav className={twMerge('flex flex-col gap-4', className)}>
       {topics.map((section) => (
         <div key={section.title}>
-          <h3 className="font-semibold text-sm text-zinc-100 mb-2">
+          <h3 className="font-semibold text-sm text-zinc-800 dark:text-zinc-100 mb-2">
             {section.title}
           </h3>
           <ul className="space-y-1">
@@ -43,10 +43,10 @@ export function Sidebar({ className }: Props) {
                 <Link
                   href={`/learn?topic=${item.slug}`}
                   className={twMerge(
-                    'block px-3 py-2 rounded-md text-left text-sm text-zinc-100 transition-all duration-200',
+                    'block px-3 py-2 rounded-md text-left text-sm text-zinc-800 font-normal dark:text-zinc-100 transition-all duration-200',
                     currentTopic === item.slug
-                      ? 'bg-zinc-800 text-green'
-                      : 'hover:bg-zinc-800',
+                      ? 'bg-zinc-200/50 dark:bg-zinc-800 dark:text-green font-medium'
+                      : 'hover:bg-zinc-200/50 dark:hover:bg-zinc-800',
                   )}
                 >
                   {item.title}

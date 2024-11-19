@@ -33,7 +33,9 @@ export function TableOfContents({ sections }: TableOfContentsProps) {
 
   return (
     <nav className="space-y-1   ">
-      <p className="font-medium mb-4 text-sm text-gray-500">On this page</p>
+      <p className="font-medium mb-4 text-sm text-zinc-800 dark:text-zinc-500">
+        On this page
+      </p>
       {sections.map(({ title }) => {
         const slug = slugify(title)
         return (
@@ -41,10 +43,10 @@ export function TableOfContents({ sections }: TableOfContentsProps) {
             key={slug}
             href={`#${slug}`}
             className={twMerge(
-              'block py-1 text-sm transition-colors',
+              'block py-1 text-sm transition-colors text-zinc-600 dark:text-zinc-400',
               activeSection === slug
-                ? 'text-green font-medium'
-                : 'text-zinc-400 hover:text-green',
+                ? 'dark:text-green font-medium'
+                : 'hover:text-green',
             )}
           >
             {title}

@@ -13,6 +13,11 @@ import { Matrix } from '@/components/matrix/matrix'
 import { useState, MouseEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { Equal, Minus, Plus, X } from 'lucide-react'
+import {
+  multiplyMatrices,
+  subtractMatrices,
+  sumMatrices,
+} from '@/helpers/matrix-functions'
 
 interface Props {
   operation: 'sum' | 'subtraction' | 'multiplication' | 'scalar'
@@ -63,10 +68,10 @@ export function Operation({ operation }: Props) {
   }
 
   const handleSetMatrix = (
-    matrixPosition: number,
     rowIndex: number,
     colIndex: number,
     value: number,
+    matrixPosition?: number | 'resultado',
   ) => {
     if (matrixPosition === 1) {
       setMatrix1((prevMatrix) => {
@@ -87,6 +92,22 @@ export function Operation({ operation }: Props) {
         return { ...prevMatrix, data: updatedData }
       })
     }
+  }
+
+  const handleCalculation = () => {
+    operation === 'sum'
+      ? setResult({ ...result, data: sumMatrices(matrix1.data, matrix2.data) })
+      : operation === 'subtraction'
+        ? setResult({
+            ...result,
+            data: subtractMatrices(matrix1.data, matrix2.data),
+          })
+        : operation === 'multiplication'
+          ? setResult({
+              ...result,
+              data: multiplyMatrices(matrix1.data, matrix2.data),
+            })
+          : console.log('alo')
   }
 
   return (
@@ -191,7 +212,7 @@ export function Operation({ operation }: Props) {
               rows={matrix1.rows}
               cols={matrix1.cols}
               data={matrix1.data}
-              handleSetMatrix={() => handleSetMatrix}
+              handleSetMatrix={handleSetMatrix}
             />
 
             {operation === 'sum' ? (
@@ -207,17 +228,23 @@ export function Operation({ operation }: Props) {
               rows={matrix2.rows}
               cols={matrix2.cols}
               data={matrix2.data}
-              handleSetMatrix={() => handleSetMatrix}
+              handleSetMatrix={handleSetMatrix}
             />
             {/* </div> */}
             {/* <div className="flex flex-col gap-8 md:flex-row md:gap-16"> */}
-            <Equal className="self-center" />
+            <Button
+              className="self-center"
+              variant={'outline'}
+              onClick={handleCalculation}
+            >
+              <Equal />
+            </Button>
             <Matrix
               matrixPosition={'resultado'}
               rows={result.rows}
               cols={result.cols}
               data={result.data}
-              handleSetMatrix={() => handleSetMatrix}
+              handleSetMatrix={handleSetMatrix}
             />
             {/* </div> */}
           </div>

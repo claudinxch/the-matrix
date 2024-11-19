@@ -3,7 +3,12 @@ import type { Matrix } from '../core/operation'
 
 interface Props extends Matrix {
   matrixPosition: number | 'resultado'
-  handleSetMatrix: (row: number, col: number, value: number) => void
+  handleSetMatrix: (
+    row: number,
+    col: number,
+    value: number,
+    matrixPosition?: number | 'resultado',
+  ) => void
 }
 
 export function Matrix({
@@ -13,17 +18,12 @@ export function Matrix({
   data,
   handleSetMatrix,
 }: Props) {
-  // const matrixValues = Array(rows)
-  //   .fill(0)
-  //   .map(() => Array(cols).fill(0))
-
   const handleCellChange = (
     rowIndex: number,
     colIndex: number,
     value: number,
   ) => {
-    // matrixValues[rowIndex][colIndex] = value
-    handleSetMatrix(rowIndex, colIndex, value)
+    handleSetMatrix(rowIndex, colIndex, value, matrixPosition)
   }
 
   return (
