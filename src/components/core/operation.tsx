@@ -166,7 +166,12 @@ export function Operation({ operation }: Props) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className={twMerge('w-full', validationError && 'min-h-[360px]')}>
+      <Card
+        className={twMerge(
+          'w-full',
+          isMatrixGenerated && validationError && 'min-h-[360px]',
+        )}
+      >
         <CardHeader>
           <motion.div
             initial={{ x: -20, opacity: 0 }}
@@ -263,7 +268,9 @@ export function Operation({ operation }: Props) {
                     className={twMerge(
                       'absolute text-red-600 left-5 font-semibold text-pretty hidden md:block',
                       isMatrixGenerated
-                        ? 'max-w-64 -bottom-1'
+                        ? operation === 'multiplication'
+                          ? 'max-w-64 -bottom-1'
+                          : 'max-w-64 bottom-3'
                         : 'max-w-[540px] bottom-6',
                     )}
                   >
