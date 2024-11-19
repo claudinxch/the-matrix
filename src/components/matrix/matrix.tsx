@@ -27,7 +27,7 @@ export function Matrix({
   }
 
   return (
-    <div className="flex flex-col gap-3 min-w-fit">
+    <div className="flex flex-col gap-3 min-w-fit items-center md:items-start">
       <h4 className="text-green font-semibold text-lg">
         Matriz {matrixPosition}
       </h4>
