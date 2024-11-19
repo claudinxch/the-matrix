@@ -114,6 +114,7 @@ export function GameWrapper() {
                       variant={'outline'}
                       className="w-48 h-20  rounded-lg text-green hover:text-green"
                       onClick={handleNextQuestion}
+                      disabled
                     >
                       Próxima <ArrowRight />
                     </Button>
