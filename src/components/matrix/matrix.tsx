@@ -2,7 +2,7 @@
 import type { Matrix } from '../core/operation'
 
 interface Props extends Matrix {
-  matrixPosition: number | 'resultado'
+  matrixPosition: number | 'resultado' | 'scalar'
   handleSetMatrix: (
     row: number,
     col: number,
@@ -23,13 +23,17 @@ export function Matrix({
     colIndex: number,
     value: number,
   ) => {
+    if (matrixPosition === 'scalar') {
+      handleSetMatrix(rowIndex, colIndex, value, 2)
+      return
+    }
     handleSetMatrix(rowIndex, colIndex, value, matrixPosition)
   }
 
   return (
     <div className="flex flex-col gap-3 min-w-fit items-center md:items-start">
       <h4 className="text-green font-semibold text-lg">
-        Matriz {matrixPosition}
+        Matriz {matrixPosition !== 'scalar' && matrixPosition}
       </h4>
       <div
         className={`${cols > 0 && rows > 0 ? '' : 'hidden'} overflow-hidden border-zinc-300 dark:border-zinc-800`}
