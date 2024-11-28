@@ -14,19 +14,21 @@ export const learnContent: Record<string, ContentSection> = {
   introduction: {
     title: 'Introdução a Matrizes',
     description:
-      'Learn the fundamentals of matrix operations and their applications',
+      'Na matemática, as matrizes são ferramentas essenciais para organizar dados e informações, facilitando a resolução de problemas complexos de maneira eficiente. Elas têm aplicações em diversas áreas, como engenharia, economia, computação, entre outras.',
     sections: [
       {
-        title: 'What is a Matrix?',
+        title: 'O que é uma matriz?',
         content: (
           <div className="space-y-6">
-            <p>
-              A matrix is a rectangular array of numbers, symbols, or
-              expressions arranged in rows and columns.
+            <p className="text-pretty text-justify ">
+              As matrizes são tabelas organizadas em linhas (horizontais) e
+              colunas(verticais) que armazenam números ou elementos. Por
+              exemplo, ela pode ser usada para representar dados, resolver
+              equações ou até realizar cálculos em computadores.
             </p>
 
             <div className="bg-gray-50 p-6 rounded-lg border">
-              <h4 className="font-semibold mb-4">Example:</h4>
+              <h4 className="font-semibold mb-4">Exemplo:</h4>
               <MatrixAnswer
                 data={[
                   [1, 2, 3],
@@ -48,6 +50,54 @@ export const learnContent: Record<string, ContentSection> = {
         ),
       },
       // More sections...
+      {
+        title: 'Fundamentos das Matrizes',
+        content: (
+          <div className="space-y-6">
+            <p className="text-pretty text-justify ">
+              As matrizes são tabelas organizadas em linhas (horizontais) e
+              colunas(verticais) que armazenam números ou elementos. Por
+              exemplo, ela pode ser usada para representar dados, resolver
+              equações ou até realizar cálculos em computadores.
+            </p>
+
+            <div className="bg-gray-50 p-6 rounded-lg border">
+              <h4 className="font-semibold mb-4">Exemplo:</h4>
+              <MatrixAnswer
+                data={[
+                  [1, 2, 3],
+                  [4, 5, 6],
+                  [7, 8, 9],
+                ]}
+              />
+            </div>
+          </div>
+        ),
+      },
+      {
+        title: 'dadododododo',
+        content: (
+          <div className="space-y-6">
+            <p className="text-pretty text-justify ">
+              As matrizes são tabelas organizadas em linhas (horizontais) e
+              colunas(verticais) que armazenam números ou elementos. Por
+              exemplo, ela pode ser usada para representar dados, resolver
+              equações ou até realizar cálculos em computadores.
+            </p>
+
+            <div className="bg-gray-50 p-6 rounded-lg border">
+              <h4 className="font-semibold mb-4">Exemplo:</h4>
+              <MatrixAnswer
+                data={[
+                  [1, 2, 3],
+                  [4, 5, 6],
+                  [7, 8, 9],
+                ]}
+              />
+            </div>
+          </div>
+        ),
+      },
     ],
   },
   'basic-operations': {

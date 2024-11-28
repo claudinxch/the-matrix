@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button } from '../ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Minus, Plus } from 'lucide-react'
 import { compareMatrices } from '@/helpers/matrix-functions'
 import { MatrixAnswer } from '../matrix/matrix'
 
@@ -13,6 +13,7 @@ interface Props {
   handleNextQuestion: () => void
   answer: number[][]
   expectedAnswer: number[][]
+  handleScoreCalculation?: (isCorrect: boolean) => void
 }
 
 export function AIExplanation({
@@ -21,21 +22,29 @@ export function AIExplanation({
   handleNextQuestion,
   answer,
   expectedAnswer,
+  handleScoreCalculation,
 }: Props) {
   const [isCorrect, setIsCorrect] = useState(false)
   const [explanation, setExplanation] = useState('Explanation will appear here')
   const [seeExplanation, setSeeExplanation] = useState(false)
+  const [scoreCalculated, setScoreCalculated] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
+    const calculateResult = setTimeout(() => {
       setIsLoading(false)
-      setIsCorrect(compareMatrices(answer, expectedAnswer))
-    }, 1500)
+      const correctnessResult = compareMatrices(answer, expectedAnswer)
+      setIsCorrect(correctnessResult)
+    }, 1200)
+
+    return () => clearTimeout(calculateResult)
   }, [setIsCorrect, setIsLoading, answer, expectedAnswer])
 
-  const blabla = () => {
-    console.log('hahahihi')
-  }
+  useEffect(() => {
+    if (!isLoading && handleScoreCalculation && !scoreCalculated) {
+      handleScoreCalculation(isCorrect)
+      setScoreCalculated(true)
+    }
+  }, [isLoading, isCorrect, handleScoreCalculation, scoreCalculated])
 
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95 },
@@ -114,44 +123,62 @@ export function AIExplanation({
             isCorrect ? 'border-green' : 'border-red-600',
           )}
         >
-          <div
-            className={`flex items-center gap-2 mb-2 ${
-              isCorrect ? 'text-green' : 'text-red-600'
-            }`}
-          >
-            {isCorrect ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          <div className="flex justify-between">
+            <div
+              className={`flex items-center gap-2 mb-2 ${
+                isCorrect ? 'text-green' : 'text-red-600'
+              }`}
+            >
+              {isCorrect ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              )}
+              <span className="font-medium">
+                {isCorrect ? 'Correto!' : 'Incorreto'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {isCorrect ? (
+                <Plus color={'#008F11'} />
+              ) : (
+                <Minus color={'#DC2626'} />
+              )}
+
+              <div
+                className={twMerge(
+                  `flex items-center justify-center text-center size-[34px] border-2 rounded-full`,
+                  isCorrect ? 'border-green' : 'border-red-600',
+                )}
               >
-                <path d="M20 6 9 17l-5-5" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
-            )}
-            <span className="font-medium">
-              {isCorrect ? 'Correto!' : 'Incorreto'}
-            </span>
+                <span className="mt-[4.5px]">{isCorrect ? 10 : 7}</span>
+              </div>
+            </div>
           </div>
 
           <p className="text-gray-700 mb-2">

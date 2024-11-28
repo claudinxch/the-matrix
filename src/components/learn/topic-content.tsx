@@ -34,11 +34,11 @@ export function TopicContent({ topic }: TopicContentProps) {
           })}
         </div>
 
-        <div className="relative hidden md:flex">
-          <div className="sticky top-6">
+        <aside className="hidden md:block">
+          <div className="sticky top-24">
             <TableOfContents sections={content.sections} />
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   )
