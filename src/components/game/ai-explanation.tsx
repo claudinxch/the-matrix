@@ -6,10 +6,12 @@ import { Button } from '../ui/button'
 import { ArrowRight, Minus, Plus } from 'lucide-react'
 import { compareMatrices } from '@/helpers/matrix-functions'
 import { MatrixAnswer } from '../matrix/matrix'
+import { getAIExplanation } from '@/app/actions'
 
 interface Props {
   isLoading?: boolean
   setIsLoading: (isLoading: boolean) => void
+  currentQuestion: string
   handleNextQuestion: () => void
   answer: number[][]
   expectedAnswer: number[][]
@@ -19,13 +21,14 @@ interface Props {
 export function AIExplanation({
   isLoading,
   setIsLoading,
+  currentQuestion,
   handleNextQuestion,
   answer,
   expectedAnswer,
   handleScoreCalculation,
 }: Props) {
   const [isCorrect, setIsCorrect] = useState(false)
-  const [explanation, setExplanation] = useState('Explanation will appear here')
+  const [explanation, setExplanation] = useState('')
   const [seeExplanation, setSeeExplanation] = useState(false)
   const [scoreCalculated, setScoreCalculated] = useState(false)
 
@@ -45,6 +48,18 @@ export function AIExplanation({
       setScoreCalculated(true)
     }
   }, [isLoading, isCorrect, handleScoreCalculation, scoreCalculated])
+
+  const handleAIExplanation = async () => {
+    setSeeExplanation(true)
+    setExplanation('Carregando explicação...')
+
+    const response = await getAIExplanation(
+      currentQuestion,
+      expectedAnswer,
+      answer,
+    )
+    setExplanation(response?.explanation)
+  }
 
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95 },
@@ -204,7 +219,7 @@ export function AIExplanation({
                 variant={'outline'}
                 size={'lg'}
                 className="font-semibold text-green hover:text-green transition-all [box-shadow:0px_1px_1px_#008f11] active:translate-y-[2px] active:!shadow-none"
-                onClick={() => setSeeExplanation(true)}
+                onClick={handleAIExplanation}
               >
                 Ver explicação da IA
               </Button>
@@ -219,7 +234,11 @@ export function AIExplanation({
             >
               <div className="mt-4 p-3 bg-gray-50 rounded-md border">
                 <h3 className="font-medium mb-2">Explicação:</h3>
-                <p className="text-gray-600">{explanation}</p>
+                <div className="bg-zinc-200 dark:bg-zinc-900 p-3 rounded-md">
+                  <p className="text-gray-600 text-pretty text-justify font-normal">
+                    {explanation}
+                  </p>
+                </div>
               </div>
             </motion.div>
           )}
@@ -228,7 +247,11 @@ export function AIExplanation({
       <Button
         variant={'outline'}
         className="w-52 h-16 rounded-lg self-end mb-2 text-green hover:text-green"
-        onClick={handleNextQuestion}
+        onClick={() => {
+          setExplanation('')
+          setSeeExplanation(false)
+          handleNextQuestion()
+        }}
       >
         Próxima <ArrowRight />
       </Button>

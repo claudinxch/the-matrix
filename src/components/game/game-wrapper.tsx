@@ -209,6 +209,7 @@ export function GameWrapper() {
                   <AIExplanation
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
+                    currentQuestion={questions[questionNumber].questionDesc}
                     handleNextQuestion={handleNextQuestion}
                     answer={matrix.data}
                     expectedAnswer={questions[questionNumber].answer}
