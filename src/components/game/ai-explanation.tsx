@@ -31,13 +31,14 @@ export function AIExplanation({
   const [explanation, setExplanation] = useState('')
   const [seeExplanation, setSeeExplanation] = useState(false)
   const [scoreCalculated, setScoreCalculated] = useState(false)
+  const [isLoadingExplanation, setIsLoadingExplanation] = useState(false)
 
   useEffect(() => {
     const calculateResult = setTimeout(() => {
       setIsLoading(false)
       const correctnessResult = compareMatrices(answer, expectedAnswer)
       setIsCorrect(correctnessResult)
-    }, 1200)
+    }, 1000)
 
     return () => clearTimeout(calculateResult)
   }, [setIsCorrect, setIsLoading, answer, expectedAnswer])
@@ -51,14 +52,20 @@ export function AIExplanation({
 
   const handleAIExplanation = async () => {
     setSeeExplanation(true)
-    setExplanation('Carregando explicação...')
+    setIsLoadingExplanation(true)
+    setExplanation('Carregando explicação')
 
     const response = await getAIExplanation(
       currentQuestion,
       expectedAnswer,
       answer,
     )
-    setExplanation(response?.explanation)
+
+    // Slight delay to make the loading state more noticeable
+    setTimeout(() => {
+      setExplanation(response?.explanation)
+      setIsLoadingExplanation(false)
+    }, 500)
   }
 
   const containerVariants = {
@@ -100,6 +107,27 @@ export function AIExplanation({
       height: 0,
       y: -20,
       transition: { duration: 0.3 },
+    },
+  }
+
+  const explanationTextVariants = {
+    hidden: {
+      opacity: 0,
+      x: -20,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: 'spring',
+        duration: 0.5,
+        bounce: 0.2,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: 20,
+      transition: { duration: 0.2 },
     },
   }
 
@@ -235,9 +263,23 @@ export function AIExplanation({
               <div className="mt-4 p-3 bg-gray-50 rounded-md border">
                 <h3 className="font-medium mb-2">Explicação:</h3>
                 <div className="bg-zinc-200 dark:bg-zinc-900 p-3 rounded-md">
-                  <p className="text-gray-600 text-pretty text-justify font-normal">
-                    {explanation}
-                  </p>
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={explanation}
+                      variants={explanationTextVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className={`text-gray-600 text-pretty flex gap-2 text-justify font-normal items-center ${
+                        isLoadingExplanation ? 'animate-pulse' : ''
+                      }`}
+                    >
+                      {explanation}
+                      {isLoadingExplanation && (
+                        <div className="w-4 h-4 rounded-full border-2 border-green border-t-transparent animate-spin" />
+                      )}
+                    </motion.p>
+                  </AnimatePresence>
                 </div>
               </div>
             </motion.div>
