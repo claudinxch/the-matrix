@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
 import { OperationsTabs } from '@/components/core/operations-tabs'
 import { Hero } from '@/components/hero'
+
+export const metadata: Metadata = {
+  title: 'The Matrix | Início',
+}
 
 export default function Home() {
   return (

@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
 import { GameWrapper } from '@/components/game/game-wrapper'
 import { ReactNode } from 'react'
+
+export const metadata: Metadata = {
+  title: 'Jogo',
+}
 
 export default function Game() {
   return (
