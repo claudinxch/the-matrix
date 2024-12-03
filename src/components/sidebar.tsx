@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge'
 
 const topics = [
   {
-    title: 'Getting Started',
+    title: 'Começando',
     items: [
       { title: 'Introduction', slug: 'introduction' },
       { title: 'Basic Operations', slug: 'basic-operations' },

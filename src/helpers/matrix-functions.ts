@@ -15,34 +15,44 @@ export const compareMatrices = (matrix1: number[][], matrix2: number[][]) => {
   return true
 }
 
-export const sumMatrices = (arr1: number[][], arr2: number[][]): number[][] => {
-  return arr1.map((row, i) => row.map((value, j) => value + arr2[i][j]))
+export const sumMatrices = (
+  matrix1: number[][],
+  matrix2: number[][],
+): number[][] => {
+  return matrix1.map((row, i) => row.map((value, j) => value + matrix2[i][j]))
 }
 
 export const subtractMatrices = (
-  arr1: number[][],
-  arr2: number[][],
+  matrix: number[][],
+  matrix2: number[][],
 ): number[][] => {
-  return arr1.map((row, i) => row.map((value, j) => value - arr2[i][j]))
+  return matrix.map((row, i) => row.map((value, j) => value - matrix2[i][j]))
 }
 
 export const multiplyMatrices = (
-  arr1: number[][],
-  arr2: number[][],
+  matrix1: number[][],
+  matrix2: number[][],
 ): number[][] => {
-  const multipliedArr: number[][] = []
+  const multipliedMatrix: number[][] = []
 
-  for (let i = 0; i < arr1.length; i++) {
+  for (let i = 0; i < matrix1.length; i++) {
     const row: number[] = []
-    for (let j = 0; j < arr2[0].length; j++) {
+    for (let j = 0; j < matrix2[0].length; j++) {
       let sum = 0
-      for (let k = 0; k < arr2.length; k++) {
-        sum += arr1[i][k] * arr2[k][j]
+      for (let k = 0; k < matrix2.length; k++) {
+        sum += matrix1[i][k] * matrix2[k][j]
       }
       row.push(sum)
     }
-    multipliedArr.push(row)
+    multipliedMatrix.push(row)
   }
 
-  return multipliedArr
+  return multipliedMatrix
+}
+
+export const multiplyMatriceByScalar = (
+  matrix: number[][],
+  scalar: number,
+): number[][] => {
+  return matrix.map((row) => row.map((value) => value * scalar))
 }

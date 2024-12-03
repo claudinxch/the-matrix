@@ -3,38 +3,69 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Button } from '../ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Minus, Plus } from 'lucide-react'
 import { compareMatrices } from '@/helpers/matrix-functions'
 import { MatrixAnswer } from '../matrix/matrix'
+import { getAIExplanation } from '@/app/actions'
 
 interface Props {
   isLoading?: boolean
   setIsLoading: (isLoading: boolean) => void
+  currentQuestion: string
   handleNextQuestion: () => void
   answer: number[][]
   expectedAnswer: number[][]
+  handleScoreCalculation?: (isCorrect: boolean) => void
 }
 
 export function AIExplanation({
   isLoading,
   setIsLoading,
+  currentQuestion,
   handleNextQuestion,
   answer,
   expectedAnswer,
+  handleScoreCalculation,
 }: Props) {
   const [isCorrect, setIsCorrect] = useState(false)
-  const [explanation, setExplanation] = useState('Explanation will appear here')
+  const [explanation, setExplanation] = useState('')
   const [seeExplanation, setSeeExplanation] = useState(false)
+  const [scoreCalculated, setScoreCalculated] = useState(false)
+  const [isLoadingExplanation, setIsLoadingExplanation] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
+    const calculateResult = setTimeout(() => {
       setIsLoading(false)
-      setIsCorrect(compareMatrices(answer, expectedAnswer))
-    }, 1500)
+      const correctnessResult = compareMatrices(answer, expectedAnswer)
+      setIsCorrect(correctnessResult)
+    }, 1000)
+
+    return () => clearTimeout(calculateResult)
   }, [setIsCorrect, setIsLoading, answer, expectedAnswer])
 
-  const blabla = () => {
-    console.log('hahahihi')
+  useEffect(() => {
+    if (!isLoading && handleScoreCalculation && !scoreCalculated) {
+      handleScoreCalculation(isCorrect)
+      setScoreCalculated(true)
+    }
+  }, [isLoading, isCorrect, handleScoreCalculation, scoreCalculated])
+
+  const handleAIExplanation = async () => {
+    setSeeExplanation(true)
+    setIsLoadingExplanation(true)
+    setExplanation('Carregando explicação')
+
+    const response = await getAIExplanation(
+      currentQuestion,
+      expectedAnswer,
+      answer,
+    )
+
+    // Slight delay to make the loading state more noticeable
+    setTimeout(() => {
+      setExplanation(response?.explanation)
+      setIsLoadingExplanation(false)
+    }, 500)
   }
 
   const containerVariants = {
@@ -79,6 +110,27 @@ export function AIExplanation({
     },
   }
 
+  const explanationTextVariants = {
+    hidden: {
+      opacity: 0,
+      x: -20,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: 'spring',
+        duration: 0.5,
+        bounce: 0.2,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: 20,
+      transition: { duration: 0.2 },
+    },
+  }
+
   if (isLoading) {
     return (
       <motion.div
@@ -114,44 +166,62 @@ export function AIExplanation({
             isCorrect ? 'border-green' : 'border-red-600',
           )}
         >
-          <div
-            className={`flex items-center gap-2 mb-2 ${
-              isCorrect ? 'text-green' : 'text-red-600'
-            }`}
-          >
-            {isCorrect ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          <div className="flex justify-between">
+            <div
+              className={`flex items-center gap-2 mb-2 ${
+                isCorrect ? 'text-green' : 'text-red-600'
+              }`}
+            >
+              {isCorrect ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              )}
+              <span className="font-medium">
+                {isCorrect ? 'Correto!' : 'Incorreto'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {isCorrect ? (
+                <Plus color={'#008F11'} />
+              ) : (
+                <Minus color={'#DC2626'} />
+              )}
+
+              <div
+                className={twMerge(
+                  `flex items-center justify-center text-center size-[34px] border-2 rounded-full`,
+                  isCorrect ? 'border-green' : 'border-red-600',
+                )}
               >
-                <path d="M20 6 9 17l-5-5" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
-            )}
-            <span className="font-medium">
-              {isCorrect ? 'Correto!' : 'Incorreto'}
-            </span>
+                <span className="mt-[4.5px]">{isCorrect ? 10 : 7}</span>
+              </div>
+            </div>
           </div>
 
           <p className="text-gray-700 mb-2">
@@ -177,7 +247,7 @@ export function AIExplanation({
                 variant={'outline'}
                 size={'lg'}
                 className="font-semibold text-green hover:text-green transition-all [box-shadow:0px_1px_1px_#008f11] active:translate-y-[2px] active:!shadow-none"
-                onClick={() => setSeeExplanation(true)}
+                onClick={handleAIExplanation}
               >
                 Ver explicação da IA
               </Button>
@@ -192,7 +262,25 @@ export function AIExplanation({
             >
               <div className="mt-4 p-3 bg-gray-50 rounded-md border">
                 <h3 className="font-medium mb-2">Explicação:</h3>
-                <p className="text-gray-600">{explanation}</p>
+                <div className="bg-zinc-200 dark:bg-zinc-900 p-3 rounded-md">
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={explanation}
+                      variants={explanationTextVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className={`text-gray-600 text-pretty flex gap-2 text-justify font-normal items-center ${
+                        isLoadingExplanation ? 'animate-pulse' : ''
+                      }`}
+                    >
+                      {explanation}
+                      {isLoadingExplanation && (
+                        <div className="w-4 h-4 rounded-full border-2 border-green border-t-transparent animate-spin" />
+                      )}
+                    </motion.p>
+                  </AnimatePresence>
+                </div>
               </div>
             </motion.div>
           )}
@@ -201,7 +289,11 @@ export function AIExplanation({
       <Button
         variant={'outline'}
         className="w-52 h-16 rounded-lg self-end mb-2 text-green hover:text-green"
-        onClick={handleNextQuestion}
+        onClick={() => {
+          setExplanation('')
+          setSeeExplanation(false)
+          handleNextQuestion()
+        }}
       >
         Próxima <ArrowRight />
       </Button>

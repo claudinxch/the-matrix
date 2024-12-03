@@ -32,9 +32,9 @@ export function TableOfContents({ sections }: TableOfContentsProps) {
   }, [sections])
 
   return (
-    <nav className="space-y-1   ">
+    <nav className="space-y-1">
       <p className="font-medium mb-4 text-sm text-zinc-800 dark:text-zinc-500">
-        On this page
+        Nesta página
       </p>
       {sections.map(({ title }) => {
         const slug = slugify(title)
