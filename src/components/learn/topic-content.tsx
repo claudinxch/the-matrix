@@ -14,7 +14,7 @@ export function TopicContent({ topic }: TopicContentProps) {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="grid md:grid-cols-[705px,160px] gap-10">
+      <div className="grid md:grid-cols-[740px,160px] gap-10">
         <div className="space-y-12">
           <div>
             <h1 className="text-4xl font-bold mb-4">{content.title}</h1>
