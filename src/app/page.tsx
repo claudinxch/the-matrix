@@ -3,7 +3,7 @@ import { OperationsTabs } from '@/components/core/operations-tabs'
 import { Hero } from '@/components/hero'
 
 export const metadata: Metadata = {
-  title: 'The Matrix | Início',
+  title: 'The Matrix | Operações',
 }
 
 export default function Home() {
