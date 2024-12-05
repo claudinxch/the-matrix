@@ -418,22 +418,204 @@ export const learnContent: Record<string, ContentSection> = {
   },
   'basic-operations': {
     title: 'Operações básicas',
-    description: 'Aprenda as operações básicas',
+    description:
+      'Podemos realizar diferentes tipos de operações com matrizes, incluindo as mais básicas, como adição, subtração e multiplicação. Vamos entender como cada uma funciona de forma simples:',
     sections: [
       {
         title: 'Adição',
         content: (
           <div className="space-y-6">
-            <p>Para somar matrizes</p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h5 className="font-medium mb-2">Matrix A</h5>
-                <MatrixAnswer
-                  data={[
-                    [1, 2],
-                    [3, 4],
-                  ]}
-                />
+            <p>
+              Para somar duas matrizes, elas precisam ter o mesmo número de
+              linhas e colunas. Basta somar os números/elementos que estão na
+              mesma posição em cada matriz.
+            </p>
+            <div className="bg-gray-50 p-6 rounded-lg border flex flex-col gap-4">
+              <h4 className="font-semibold">Exemplo:</h4>
+              <div className="pb-4">
+                <div className="flex items-center gap-2 mt-2">
+                  <span>
+                    <span className="italic"> A </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [10, 20],
+                      [30, 40],
+                    ]}
+                  />
+                  <span>
+                    <span className="italic"> B </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [50, 60],
+                      [70, 80],
+                    ]}
+                  />
+                  <span>
+                    <span className="italic"> A + B </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [60, 80],
+                      [100, 120],
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ),
+      },
+      /* Subtraction */
+      {
+        title: 'Subtração',
+        content: (
+          <div className="space-y-6">
+            <p>
+              Na subtração de matrizes usamos a mesma regra da adição:
+              subtraímos os elementos que estão nas mesmas posições de cada
+              matriz. Elas também precisam ter o mesmo número de linhas e
+              colunas.
+            </p>
+            <div className="bg-gray-50 p-6 rounded-lg border flex flex-col gap-4">
+              <h4 className="font-semibold">Exemplo:</h4>
+              <div className="pb-4">
+                <div className="flex items-center gap-2 mt-2">
+                  <span>
+                    <span className="italic"> A </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [50, 20],
+                      [70, 40],
+                    ]}
+                  />
+                  <span>
+                    <span className="italic"> B </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [10, 33],
+                      [20, 84],
+                    ]}
+                  />
+                  <span>
+                    <span className="italic"> A - B </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [40, -13],
+                      [50, -44],
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ),
+      },
+
+      /** Multiplication */
+      {
+        title: 'Multiplicação',
+        content: (
+          <div className="space-y-6">
+            <p>
+              A multiplicação de matrizes é um pouco mais complicada. O número
+              de linhas da matriz A e o número de colunas da matriz B precisam
+              ser iguais para realizarmos a multiplicação. Para calcular o
+              produto fazemos a soma dos produtos entre as linhas da primeira
+              matriz e as colunas da segunda matriz.
+            </p>
+            <div className="bg-gray-50 p-6 rounded-lg border flex flex-col gap-4">
+              <h4 className="font-semibold">Exemplo:</h4>
+              <div className="pb-4">
+                <div className="flex items-center gap-2 mt-2">
+                  <span>
+                    <span className="italic"> A </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [1, 2],
+                      [3, 4],
+                    ]}
+                  />
+                  <span>
+                    <span className="italic"> B </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [5, 6],
+                      [7, 8],
+                    ]}
+                  />
+                </div>
+                <div className="flex items-center gap-2 mt-2">
+                  <span>
+                    <span className="italic"> A x B </span>=
+                  </span>
+                  <p className="mt-3 text-green">
+                    [(1 x 5 + 2 x 7) (1 x 6 + 2 x 8)]<br></br>
+                    [(3 x 5 + 4 x 7) (3 x 6 + 4 x 8)]
+                  </p>
+                  =
+                  <MatrixAnswer
+                    data={[
+                      [19, 22],
+                      [43, 50],
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ),
+      },
+
+      /* Scalar multiplication */
+      {
+        title: 'Multiplicação Escalar',
+        content: (
+          <div className="space-y-6">
+            <p>
+              A multiplicação escalar consiste em multiplicar uma matriz inteira
+              por um único número, que chamamos de escalar. Para fazer o
+              cálculo, basta multiplicar cada elemento da matriz por esse
+              número.
+            </p>
+            <div className="bg-gray-50 p-6 rounded-lg border flex flex-col gap-4">
+              <h4 className="font-semibold">Exemplo:</h4>
+              <div className="pb-4">
+                <div className="flex items-center gap-2 mt-2">
+                  <span>
+                    <span className="italic"> A </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [1, 2],
+                      [3, 4],
+                    ]}
+                  />
+                  <span>
+                    <span className="italic"> K </span> =
+                  </span>
+                  <input
+                    type="number"
+                    className="size-[46px] text-center border border-zinc-300 dark:border-zinc-800 focus:outline-none mr-5"
+                    value={3}
+                    disabled
+                  />
+                  <span>
+                    <span className="italic"> A x K </span>=
+                  </span>
+                  <MatrixAnswer
+                    data={[
+                      [3, 6],
+                      [9, 12],
+                    ]}
+                  />
+                </div>
               </div>
             </div>
           </div>
