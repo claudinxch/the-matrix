@@ -10,7 +10,7 @@ import {
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 // import { logOut } from '@/lib/actions'
-import Link from 'next/link'
+// import Link from 'next/link'
 
 export async function UserAvatar() {
   //   const session = await auth()
@@ -26,7 +26,7 @@ export async function UserAvatar() {
         <Button variant="outline" className="rounded-full" size="icon">
           <Avatar>
             <AvatarImage
-              //   src={image}
+              src={'./mortheus.jpg'}
               alt="User Avatar"
               className="rounded-full object-cover overflow-hidden"
             />
@@ -37,14 +37,14 @@ export async function UserAvatar() {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href="/dashboard">
-          <DropdownMenuItem className="cursor-pointer">Perfil</DropdownMenuItem>
-        </Link>
-        <Link href="/settings">
-          <DropdownMenuItem className="cursor-pointer">
-            Configurações
-          </DropdownMenuItem>
-        </Link>
+        {/* <Link href="/dashboard"> */}
+        <DropdownMenuItem className="cursor-pointer">Perfil</DropdownMenuItem>
+        {/* </Link> */}
+        {/* <Link href="/settings"> */}
+        <DropdownMenuItem className="cursor-pointer">
+          Configurações
+        </DropdownMenuItem>
+        {/* </Link> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           {/* <form action={logOut}> */}
