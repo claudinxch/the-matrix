@@ -1,7 +1,8 @@
 'use client'
+import { ComponentProps } from 'react'
 import type { Matrix } from '../core/operation'
 
-interface Props extends Matrix {
+interface Props extends Matrix, ComponentProps<'div'> {
   matrixPosition: number | 'resultado' | 'scalar'
   handleSetMatrix: (
     row: number,
@@ -17,6 +18,7 @@ export function Matrix({
   rows,
   data,
   handleSetMatrix,
+  ...props
 }: Props) {
   const handleCellChange = (
     rowIndex: number,
@@ -31,7 +33,10 @@ export function Matrix({
   }
 
   return (
-    <div className="flex flex-col gap-3 min-w-fit items-center md:items-start">
+    <div
+      className="flex flex-col gap-3 min-w-fit items-center md:items-start"
+      {...props}
+    >
       <h4 className="text-green font-semibold text-lg">
         Matriz {matrixPosition !== 'scalar' && matrixPosition}
       </h4>
@@ -66,9 +71,13 @@ export function Matrix({
   )
 }
 
-export function MatrixAnswer({ data }: Pick<Props, 'data'>) {
+interface MatrixAnswerProps extends ComponentProps<'div'> {
+  data: number[][] // Only include data for the matrix display
+}
+
+export function MatrixAnswer({ data, ...props }: MatrixAnswerProps) {
   return (
-    <div className="flex flex-col gap-3 min-w-44">
+    <div className="flex flex-col gap-3 min-w-44" {...props}>
       <div
         className={`${data[0].length > 0 && data.length > 0 ? '' : 'hidden'} overflow-hidden border-zinc-300 dark:border-zinc-800`}
       >

@@ -18,12 +18,23 @@ export function GameWrapper() {
   const [questionNumber, setQuestionNumber] = useState(0)
   const [accumulatedScore, setAccumulatedScore] = useState(0)
 
+  const [randomQuestionIndex, setRandomQuestionIndex] = useState(() =>
+    Math.floor(Math.random() * questions.length),
+  )
+  const [answeredQuestionsIndexes, setAnsweredQuestionsIndexes] = useState<
+    number[]
+  >([])
+  // eslint-disable-next-line
+  const [playCount, setPlayCount] = useState(0)
+
   const [matrix, setMatrix] = useState<MatrixType>({
-    rows: questions[questionNumber].answer.length,
-    cols: questions[questionNumber].answer[0].length,
-    data: Array(questions[questionNumber].answer.length)
+    rows: questions[randomQuestionIndex].answer.length,
+    cols: questions[randomQuestionIndex].answer[0].length,
+    data: Array(questions[randomQuestionIndex].answer.length)
       .fill(0)
-      .map(() => Array(questions[questionNumber].answer[0].length).fill(0)),
+      .map(() =>
+        Array(questions[randomQuestionIndex].answer[0].length).fill(0),
+      ),
   })
 
   const handleVerifyAnswer = () => {
@@ -32,14 +43,25 @@ export function GameWrapper() {
   }
 
   const handleNextQuestion = () => {
-    if (questionNumber === 4) {
+    // Add the current question index to the answered questions
+    setAnsweredQuestionsIndexes((prev) => [...prev, randomQuestionIndex])
+
+    if (questionNumber === 9) {
       setIsGameFinished(true)
       setQuestionNumber(0)
       setGameStart(false)
       return
     }
 
-    const nextQuestion = questions[questionNumber + 1]
+    // Generate a new random question index that hasn't been answered yet
+    let nextIndex
+    do {
+      nextIndex = Math.floor(Math.random() * questions.length)
+    } while (answeredQuestionsIndexes.includes(nextIndex))
+
+    setRandomQuestionIndex(nextIndex)
+
+    const nextQuestion = questions[nextIndex]
     const rows = nextQuestion.answer.length
     const cols = nextQuestion.answer[0].length
 
@@ -79,12 +101,27 @@ export function GameWrapper() {
     setQuestionNumber(0)
     setGetAnswer(false)
     setAccumulatedScore(0)
+
+    const resetIndex = Math.floor(Math.random() * questions.length)
+    setRandomQuestionIndex(resetIndex)
+
+    setPlayCount((prev) => {
+      const newPlayCount = prev + 1
+
+      if (newPlayCount === 2) {
+        setAnsweredQuestionsIndexes([])
+        return 0
+      }
+
+      return newPlayCount
+    })
+
     setMatrix({
-      rows: questions[questionNumber].answer.length,
-      cols: questions[questionNumber].answer[0].length,
-      data: Array(questions[questionNumber].answer.length)
+      rows: questions[resetIndex].answer.length,
+      cols: questions[resetIndex].answer[0].length,
+      data: Array(questions[resetIndex].answer.length)
         .fill(0)
-        .map(() => Array(questions[questionNumber].answer[0].length).fill(0)),
+        .map(() => Array(questions[resetIndex].answer[0].length).fill(0)),
     })
   }
 
@@ -103,7 +140,7 @@ export function GameWrapper() {
           </h4>
 
           <div className="flex flex-col gap-px">
-            {accumulatedScore >= 25 ? (
+            {accumulatedScore >= 50 ? (
               <>
                 <p className="text-lg text-dark-gray dark:text-light-gray">
                   Parabéns, você ganhou{' '}
@@ -162,7 +199,7 @@ export function GameWrapper() {
           <div className="border rounded-lg px-8 py-6 flex flex-col md:w-[1100px] gap-6">
             <Question
               questionNumber={questionNumber + 1}
-              questionDescription={questions[questionNumber].questionDesc}
+              questionDescription={questions[randomQuestionIndex].questionDesc}
             />
 
             <div
@@ -209,10 +246,12 @@ export function GameWrapper() {
                   <AIExplanation
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
-                    currentQuestion={questions[questionNumber].questionDesc}
+                    currentQuestion={
+                      questions[randomQuestionIndex].questionDesc
+                    }
                     handleNextQuestion={handleNextQuestion}
                     answer={matrix.data}
-                    expectedAnswer={questions[questionNumber].answer}
+                    expectedAnswer={questions[randomQuestionIndex].answer}
                     handleScoreCalculation={handleScoreCalculation}
                   />
                 )}

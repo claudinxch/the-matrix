@@ -8,16 +8,18 @@ const topics = [
   {
     title: 'Começando',
     items: [
-      { title: 'Introduction', slug: 'introduction' },
-      { title: 'Basic Operations', slug: 'basic-operations' },
+      { title: 'Introdução', slug: 'introduction' },
+      { title: 'Operações básicas', slug: 'basic-operations' },
     ],
   },
   {
-    title: 'Matrix Operations',
+    title: 'Operações com matrizes',
     items: [
-      { title: 'Addition', slug: 'addition' },
-      { title: 'Multiplication', slug: 'multiplication' },
-      { title: 'Determinant', slug: 'determinant' },
+      { title: 'Adição', slug: 'addition' },
+      { title: 'Subtração', slug: 'subtraction' },
+      { title: 'Multiplicação', slug: 'multiplication' },
+      { title: 'Multiplicação Escalar', slug: 'scalar-multiplication' },
+      { title: 'Determinante', slug: 'determinant' },
     ],
   },
 ]
